@@ -1,5 +1,6 @@
 package intel.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -49,7 +50,13 @@ public class Handler implements Listener{
             return;
         }
 
-        e.setCancelled(true);
+        if(e.getClickedBlock().getType() == Material.CHEST){
+            e.setCancelled(true);
+            p.sendMessage(ChatColor.GREEN + "Убери предмет из руки");
+            p.playSound(p.getLocation(), Sound.BLAZE_HIT, 1,1);
+        }
+
+
 
     }
 }
