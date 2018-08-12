@@ -39,13 +39,17 @@ public class Handler implements Listener{
     @EventHandler
     public void interact(PlayerInteractEvent e){
         Action a = e.getAction();
-        if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK){
+        if(a!= Action.RIGHT_CLICK_BLOCK){
             return;
         }
+
         Player p = e.getPlayer();
-        ItemStack item = p.getItemInHand();
-        if(item.getType() == Material.ANVIL){
-            p.playSound(p.getLocation(), Sound.ANVIL_USE, 1, 1);
+
+        if(p.getItemInHand().getType() == Material.AIR){
+            return;
         }
+
+        e.setCancelled(true);
+
     }
 }
