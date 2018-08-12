@@ -1,11 +1,16 @@
 package intel.events;
 
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class Handler implements Listener{
 
@@ -28,7 +33,19 @@ public class Handler implements Listener{
         meages[2] = "x: " + b.getX();
         meages[1] = "y: " + b.getY();
         meages[0] = "z: " + b.getZ();
-
+        p.sendMessage(meages);
     }
 
+    @EventHandler
+    public void interact(PlayerInteractEvent e){
+        Action a = e.getAction();
+        if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK){
+            return;
+        }
+        Player p = e.getPlayer();
+        ItemStack item = p.getItemInHand();
+        if(item.getType() == Material.ANVIL){
+            p.playSound(p.getLocation(), Sound.ANVIL_USE, 1, 1);
+        }
+    }
 }
